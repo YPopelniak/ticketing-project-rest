@@ -28,11 +28,14 @@ public class UserServiceImpl implements UserService {
     private final ProjectService projectService;
     private final TaskService taskService;
 
-    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper, ProjectService projectService, TaskService taskService) {
+    private final KeycloakServiceImpl keycloakService;
+
+    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper, ProjectService projectService, TaskService taskService, KeycloakServiceImpl keycloakService) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
         this.projectService = projectService;
         this.taskService = taskService;
+        this.keycloakService = keycloakService;
     }
 
     @Override
@@ -57,6 +60,8 @@ public class UserServiceImpl implements UserService {
         User obj = userMapper.convertToEntity(dto);
 
         userRepository.save(obj);
+
+        keycloakService.userCreate(dto);
 
     }
 
