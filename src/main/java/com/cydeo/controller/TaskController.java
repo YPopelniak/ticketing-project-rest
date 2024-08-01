@@ -5,6 +5,7 @@ import com.cydeo.entity.ResponseWrapper;
 import com.cydeo.enums.Status;
 import com.cydeo.service.ProjectService;
 import com.cydeo.service.TaskService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -13,8 +14,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/api/v1/task")
+@Tag(name= "TaskController", description = "User Api")
 public class TaskController {
 
     private final TaskService taskService;
@@ -56,7 +58,6 @@ public class TaskController {
 
 
     }
-
         @PutMapping()
         @RolesAllowed("Manager")
     public ResponseEntity<ResponseWrapper> updateTask(@RequestBody TaskDTO taskDTO) {
